@@ -12,7 +12,7 @@ import java.util.List;
 public class CleaningProcedureService {
     private final CleaningProcedureRepository repository;
 
-    public List<CleaningProcedure> getRoomCleanups(Long roomId) {
+    public List<CleaningProcedure> getRoomCleanups(String roomId) {
         return repository.findAllByCleanup_RoomId(roomId);
     }
 }

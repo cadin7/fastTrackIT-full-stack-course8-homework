@@ -12,7 +12,7 @@ import java.util.List;
 public class ReviewService {
     private final ReviewRepository repository;
 
-    public List<Review> getRoomReviews(Long roomId) {
+    public List<Review> getRoomReviews(String roomId) {
         return repository.findAllByRoomId(roomId);
     }
 }

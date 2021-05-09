@@ -4,26 +4,24 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Data
 @Entity
 @Builder
+@Document
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
     @Id
-    @GeneratedValue
-    private Long id;
+    private String id;
 
     private String message;
     private int rating;
     private String touristName;
 
-    @ManyToOne
-    private Room room;
+    private String roomId;
 }

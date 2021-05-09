@@ -28,28 +28,28 @@ public class RoomController {
     }
 
     @GetMapping("{roomId}")
-    Room getRoom(@PathVariable Long roomId) {
+    Room getRoom(@PathVariable String roomId) {
         return service.getRoom(roomId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cannot find room with ID: " + roomId));
     }
 
     @GetMapping("{roomId}/cleanups")
-    List<CleaningProcedure> getRoomCleanups(@PathVariable Long roomId) {
+    List<CleaningProcedure> getRoomCleanups(@PathVariable String roomId) {
         return cleaningProcedureService.getRoomCleanups(roomId);
     }
 
     @GetMapping("{roomId}/reviews")
-    List<Review> getRoomReviews(@PathVariable Long roomId) {
+    List<Review> getRoomReviews(@PathVariable String roomId) {
         return reviewService.getRoomReviews(roomId);
     }
 
     @PatchMapping("{roomId}")
-    Room patchRoom(@RequestBody JsonPatch patch, @PathVariable Long roomId) {
+    Room patchRoom(@RequestBody JsonPatch patch, @PathVariable String roomId) {
         return service.patchRoom(roomId, patch);
     }
 
     @DeleteMapping("{roomId}")
-    Room deleteRoom(@PathVariable Long roomId) {
+    Room deleteRoom(@PathVariable String roomId) {
         return service.deleteRoom(roomId);
     }
 }

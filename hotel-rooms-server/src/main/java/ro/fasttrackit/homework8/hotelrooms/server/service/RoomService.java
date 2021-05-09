@@ -26,31 +26,31 @@ public class RoomService {
         return dao.getAll(filters);
     }
 
-    public Optional<Room> getRoom(Long roomId) {
+    public Optional<Room> getRoom(String roomId) {
         return repository.findById(roomId);
     }
 
-    public Room deleteRoom(Long roomId) {
+    public Room deleteRoom(String roomId) {
         var roomToDelete = getOrThrow(roomId);
         repository.deleteById(roomId);
 
         return roomToDelete;
     }
 
-    private Room getOrThrow(Long roomId) {
+    private Room getOrThrow(String roomId) {
         return repository.findById(roomId)
                 .orElseThrow(() -> new ResourceNotFoundException("Couldn't find room with ID: " + roomId));
     }
 
     @SneakyThrows
-    public Room patchRoom(Long roomId, JsonPatch patch) {
+    public Room patchRoom(String roomId, JsonPatch patch) {
         Room roomToPatch = getOrThrow(roomId);
         JsonNode patchedRoomJson = patch.apply(mapper.valueToTree(roomToPatch));
         Room patchedRoom = mapper.treeToValue(patchedRoomJson, Room.class);
         return replaceRoom(roomId, patchedRoom);
     }
 
-    private Room replaceRoom(Long roomId, Room newRoom) {
+    private Room replaceRoom(String roomId, Room newRoom) {
         newRoom.setId(roomId);
         Room roomToUpdate = getOrThrow(roomId);
         copyRoom(newRoom, roomToUpdate);
@@ -58,7 +58,7 @@ public class RoomService {
     }
 
     private void copyRoom(Room newRoom, Room dbRoom) {
-        dbRoom.setRoomFacilities(newRoom.getRoomFacilities());
+        dbRoom.setRoomFacilityId(newRoom.getRoomFacilityId());
         dbRoom.setFloor(newRoom.getFloor());
         dbRoom.setHotelName(newRoom.getHotelName());
         dbRoom.setNumber(newRoom.getNumber());
